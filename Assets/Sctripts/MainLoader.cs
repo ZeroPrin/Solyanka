@@ -1,17 +1,19 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
-public class MainLoader : MonoBehaviour
+public class MainLoader : IInitializable
 {
-    private IEnumerator Start()
-    {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Main");
+    private SceneLoader _sceneLoader;
 
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
+    [Inject]
+    public void Construct(SceneLoader sceneLoader)
+    {
+        _sceneLoader = sceneLoader;
+    }
+
+    public void Initialize()
+    {
+        _sceneLoader.LoadSceneByName("Main");
     }
 }
