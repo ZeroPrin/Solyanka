@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Zenject;
 
-public class MainLoader : MonoBehaviour
+public class MainLoader : IInitializable
 {
     private SceneLoader _sceneLoader;
 
@@ -10,23 +10,10 @@ public class MainLoader : MonoBehaviour
     public void Construct(SceneLoader sceneLoader)
     {
         _sceneLoader = sceneLoader;
-        Debug.Log("SceneLoader успешно инъектирован в MainLoader");
     }
 
-    private void Awake()
+    public void Initialize()
     {
-        Debug.Log("MainLoader Awake");
-    }
-
-    private void Start()
-    {
-        if (_sceneLoader == null)
-        {
-            Debug.LogError("SceneLoader не был инъектирован!");
-            return;
-        }
-
-        Debug.Log("MainLoader Start - Загружаем сцену...");
         _sceneLoader.LoadSceneByName("Main");
     }
 }

@@ -6,5 +6,6 @@ public class ProjectInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container.Bind<SceneLoader>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<MainLoader>().AsSingle().NonLazy();
     }
 }
