@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Zenject;
 
-public class MainLoader : IInitializable
+public class LoadSceneController : IInitializable
 {
     private SceneLoader _sceneLoader;
 
@@ -14,6 +14,6 @@ public class MainLoader : IInitializable
 
     public void Initialize()
     {
-        _sceneLoader.LoadSceneByName("Main");
+        _sceneLoader.LoadSceneByType(Enums.SceneType.Main);
     }
 }
