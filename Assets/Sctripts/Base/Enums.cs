@@ -7,4 +7,11 @@ public class Enums
         Gameplay
     }
 
+    public enum TaskPriority
+    {
+        WorldEvent,  // Например, "работа".
+        Survival,    // Еда, сон.
+        Comfort,     // Отдых.
+        LowPriority  // Развлечения.
+    }
 }
