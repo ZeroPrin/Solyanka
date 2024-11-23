@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    public ScreenUI CurrentScreen => _currentScreen;
+
     [SerializeField] private ScreenUI[] _screens;
     [SerializeField] private Transform _canvas;
     private ScreenUI _currentScreen;
@@ -21,6 +23,8 @@ public class UIManager : MonoBehaviour
                 newScreen.transform.SetParent(_canvas, false);
 
                 _currentScreen = newScreen;
+
+                _currentScreen.Initialize();
             }
         }
     }
