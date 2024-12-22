@@ -7,4 +7,11 @@ public class Enums
         Gameplay
     }
 
+    public enum ScreenType
+    {
+        LoadScreen,
+        MainMenuScreen,
+        GameplayScreen
+    }
+
 }

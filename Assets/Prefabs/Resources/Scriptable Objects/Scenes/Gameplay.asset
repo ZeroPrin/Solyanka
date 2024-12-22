@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57f4960df67719d4881ab00a00e5eddd, type: 3}
-  m_Name: AllScenesData
+  m_Script: {fileID: 11500000, guid: 362657658b211bb4d880b09e874c9c98, type: 3}
+  m_Name: Gameplay
   m_EditorClassIdentifier: 
-  _scenes:
-  - {fileID: 11400000, guid: fd21f526ef70e0f408b7170b2276338b, type: 2}
-  - {fileID: 11400000, guid: 260dcd9836092fe419b4093e3f95baa6, type: 2}
+  SceneType: 2
+  SceneAsset: {fileID: 102900000, guid: b86c51c710776b34bbbe107a8a5924da, type: 3}
