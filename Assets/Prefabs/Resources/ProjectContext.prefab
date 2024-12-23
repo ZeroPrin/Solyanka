@@ -263,4 +263,5 @@ MonoBehaviour:
   _screens:
   - {fileID: 6753281801778562890, guid: 8e257ed3e7ba96c419ef020b3693414a, type: 3}
   - {fileID: 484348108282245264, guid: 4c365383a19887c43b4859b4d39909ce, type: 3}
+  - {fileID: 3506729887941734565, guid: 9157f4f7c972a4c49a614863faaf0e35, type: 3}
   _canvas: {fileID: 7464433190602657082}
