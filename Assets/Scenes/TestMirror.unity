@@ -558,7 +558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: 7777
-  DualMode: 1
+  DualMode: 0
   NoDelay: 1
   Interval: 10
   Timeout: 10000
@@ -571,9 +571,9 @@ MonoBehaviour:
   MaximizeSocketBuffers: 1
   ReliableMaxMessageSize: 297433
   UnreliableMaxMessageSize: 1194
-  debugLog: 0
-  statisticsGUI: 0
-  statisticsLog: 0
+  debugLog: 1
+  statisticsGUI: 1
+  statisticsLog: 1
 --- !u!114 &1293073763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -588,14 +588,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
   runInBackground: 1
-  headlessStartMode: 0
-  editorAutoStart: 0
+  headlessStartMode: 1
+  editorAutoStart: 1
   sendRate: 60
   offlineScene: 
   onlineScene: 
   offlineSceneLoadDelay: 0
   transport: {fileID: 1293073762}
-  networkAddress: localhost
+  networkAddress: 0.0.0.0
   maxConnections: 100
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
