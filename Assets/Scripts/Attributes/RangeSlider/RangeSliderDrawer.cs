@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 
 [CustomPropertyDrawer(typeof(RangeSliderAttribute))]
@@ -43,3 +44,4 @@ public class RangeSliderDrawer : PropertyDrawer
         property.vector2Value = range;
     }
 }
+#endif

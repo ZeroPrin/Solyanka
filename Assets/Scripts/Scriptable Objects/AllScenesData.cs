@@ -1,6 +1,4 @@
-using System.IO;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using static Enums;
 
 [CreateAssetMenu(fileName = "AllScenesData", menuName = "Scriptable Objects/All Scenes Data")]
@@ -10,20 +8,15 @@ public class AllScenesData : ScriptableObject
 
     public string GetSceneNameByType(SceneType type)
     {
-        foreach (var scene in _scenes)
+        foreach (SceneData scene in _scenes)
         {
             if (scene.SceneType == type)
             {
-                string scenePath = AssetDatabase.GetAssetPath(scene.SceneAsset);
-
-                string sceneName = Path.GetFileNameWithoutExtension(scenePath);
-
-                return sceneName;
+                return scene.SceneName;
             }
         }
 
         Debug.LogError("Scene with type " + type + " not found!");
-
         return null;
     }
 }

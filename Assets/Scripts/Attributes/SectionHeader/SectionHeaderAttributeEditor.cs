@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -80,3 +81,4 @@ public class SectionHeaderAttributeEditor : Editor
         EditorGUILayout.Space(5);
     }
 }
+#endif

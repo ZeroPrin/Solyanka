@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 using System.Reflection;
 using System;
@@ -105,3 +106,4 @@ public class MainEditor : Editor
         EditorGUILayout.Space(5);
     }
 }
+#endif
