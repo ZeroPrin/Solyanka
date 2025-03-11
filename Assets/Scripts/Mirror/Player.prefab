@@ -53,6 +53,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  cameraTransform: {fileID: 8317631107750455167}
+  mouseSensitivity: 100
+  movementSpeed: 5
 --- !u!114 &124204562630075754
 MonoBehaviour:
   m_ObjectHideFlags: 0

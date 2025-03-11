@@ -1,22 +1,50 @@
 ﻿using Mirror;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMirror : NetworkBehaviour // даём системе понять, что это сетевой объект
+public class PlayerMirror : NetworkBehaviour
 {
+    public Transform cameraTransform; // Ссылка на камеру (должна быть дочерним объектом)
+    public float mouseSensitivity = 200f; // Чувствительность мыши
+    public float movementSpeed = 5f; // Скорость передвижения
+
+    private float verticalRotation = 0f; // Угол наклона камеры (ограничение)
+
+    void Start()
+    {
+        if (isOwned)
+        {
+            Cursor.lockState = CursorLockMode.Locked; // Прячем курсор
+        }
+    }
+
     void Update()
     {
-        if (isOwned) // проверяем, есть ли у нас права изменять этот объект
-        {
-            float h = Input.GetAxis("Horizontal"); // движение по оси X
-            float v = Input.GetAxis("Vertical");   // движение по оси Z
-            float y = 0f; // движение по оси Y, можно настроить при необходимости (например, прыжки)
+        if (!isOwned) return; // Проверяем, управляем ли мы этим объектом
 
-            float speed = 5f * Time.deltaTime;
+        HandleMovement();
+        HandleMouseLook();
+    }
 
-            Vector3 movement = new Vector3(h * speed, y, v * speed); // создаём вектор для перемещения
-            transform.Translate(movement, Space.World); // перемещаем объект в мировых координатах
-        }
+    void HandleMovement()
+    {
+        float h = Input.GetAxis("Horizontal"); // Движение по X
+        float v = Input.GetAxis("Vertical");   // Движение по Z
+
+        Vector3 movement = transform.right * h + transform.forward * v; // Двигаем в сторону взгляда
+        transform.position += movement * movementSpeed * Time.deltaTime;
+    }
+
+    void HandleMouseLook()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+
+        // Поворот игрока (по горизонтали)
+        transform.Rotate(Vector3.up * mouseX);
+
+        // Поворот камеры (по вертикали)
+        verticalRotation -= mouseY;
+        verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f); // Ограничение от -90° до 90°
+        cameraTransform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
     }
 }
