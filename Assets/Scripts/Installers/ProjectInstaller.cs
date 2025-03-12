@@ -15,6 +15,8 @@ public class ProjectInstaller : MonoInstaller
         Container.Bind<AllScenesData>().FromInstance(_allScenesData).AsSingle().NonLazy();
         Container.Bind<UIManager>().FromInstance(_uiManager).AsSingle().NonLazy();
 
+        Container.Bind<IEventAggregator>().To<EventAggregator>().AsSingle().NonLazy();
         Container.Bind<SceneLoader>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<GameDataManager>().AsSingle().NonLazy();
     }
 }

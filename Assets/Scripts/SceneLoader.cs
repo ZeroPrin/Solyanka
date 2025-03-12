@@ -29,6 +29,8 @@ public class SceneLoader
     {
         if (CanLoadScene(sceneName))
         {
+            Debug.Log("Load scene with name " + sceneName);
+
             SceneManager.LoadScene(sceneName);
         }
         else
@@ -41,6 +43,8 @@ public class SceneLoader
     {
         if (CanLoadScene(sceneId))
         {
+            Debug.Log("Load scene with id " + sceneId);
+
             SceneManager.LoadScene(sceneId);
         }
         else

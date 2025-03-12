@@ -16,11 +16,10 @@ public class MainMenuSceneController : IInitializable
     public void Initialize()
     {
         _uiManager.OpenScreen(Enums.ScreenType.MainMenuScreen);
-        ((MainMenuScreen)_uiManager.CurrentScreen).GameplayButton.onClick.AddListener(LoadScene);
     }
 
     private void LoadScene()
     {
-        _sceneLoader.LoadSceneByType(Enums.SceneType.Gameplay);
+        _sceneLoader.LoadSceneByType(Enums.SceneType.MultiplayerArena);
     }
 }

@@ -308,7 +308,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -444,7 +444,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1367,7 +1367,7 @@ GameObject:
   - component: {fileID: 4893452353872679701}
   - component: {fileID: 1719149089004061903}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Host
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1488,7 +1488,7 @@ GameObject:
   - component: {fileID: 964960201285037984}
   - component: {fileID: 7172086550135194545}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: Client
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1865,4 +1865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScreenType: 1
-  GameplayButton: {fileID: 0}
+  _ipInputField: {fileID: 344228284619976479}
+  _portInputField: {fileID: 7638655958474007293}
+  _hostConnectBtn: {fileID: 1719149089004061903}
+  _clientConnectBtn: {fileID: 7172086550135194545}

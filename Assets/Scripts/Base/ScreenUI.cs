@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class ScreenUI : MonoBehaviour
+public abstract class ScreenUI : MonoBehaviour
 {
-    [Header("\n Screen type")]
+    [Header("\nScreen type")]
     public Enums.ScreenType ScreenType;
 
-    public virtual void Initialize()
-    {
-        
-    }
+    public abstract void Initialize();
+
+    public abstract void Deinitialize();
+
 }

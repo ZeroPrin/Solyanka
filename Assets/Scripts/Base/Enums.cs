@@ -4,14 +4,14 @@ public class Enums
     {
         Load,
         Main,
-        Gameplay
+        MultiplayerArena
     }
 
     public enum ScreenType
     {
         LoadScreen,
         MainMenuScreen,
-        GameplayScreen
+        MultiplayerArenaScreen
     }
 
 }
