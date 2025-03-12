@@ -1,52 +1,35 @@
-﻿using UnityEngine;
-using Mirror;
-using kcp2k;
+﻿using Mirror;
+using UnityEngine;
 
 public class CustomNetworkManager : NetworkManager
 {
-    public string serverIP = "26.16.112.127"; // Введи свой IP
-    public ushort serverPort = 5555; // Порт сервера
-
-    public override void Awake()
+    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
-        base.Awake();
-
-        // Устанавливаем порт и IP-адрес для KCP Transport
-        KcpTransport transport = GetComponent<KcpTransport>();
-        if (transport != null)
-        {
-            transport.Port = serverPort;
-            Debug.Log($"✅ Установлен порт: {serverPort}");
-        }
-        else
-        {
-            Debug.LogError("❌ KCP Transport не найден!");
-        }
-
-        // Устанавливаем IP сервера
-        networkAddress = serverIP;
-        Debug.Log($"🌐 IP-адрес сервера установлен: {networkAddress}");
+        GameObject player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        NetworkServer.AddPlayerForConnection(conn, player);
     }
 
-    void Start()
+    [Server]
+    public void SpawnPlayer(NetworkConnectionToClient conn, Vector3 position)
     {
-        Debug.Log("🚀 Автозапуск сервера...");
-        StartHost();
+        GameObject player = Instantiate(playerPrefab, position, Quaternion.identity);
+        NetworkServer.AddPlayerForConnection(conn, player);
     }
 
-    public override void OnStartServer()
+    public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
-        Debug.Log("✅ Сервер успешно запущен и ждет клиентов...");
-        Debug.Log($"🌍 Сервер слушает на: {networkAddress}:{GetComponent<KcpTransport>().Port}");
+        if (conn.identity != null)
+        {
+            NetworkServer.Destroy(conn.identity.gameObject);
+
+            Debug.Log($"[SERVER] Игрок {conn.connectionId} отключился");
+        }
+
+        base.OnServerDisconnect(conn);
     }
 
     public override void OnServerConnect(NetworkConnectionToClient conn)
     {
-        Debug.Log($"🔗 Клиент подключился: {conn.address}");
-    }
-
-    public override void OnClientConnect()
-    {
-        Debug.Log("✅ Клиент успешно подключился к серверу!");
+        Debug.Log($"[SERVER] Новый игрок подключился: {conn.connectionId}");
     }
 }
