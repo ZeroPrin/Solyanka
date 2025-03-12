@@ -1,15 +1,13 @@
 ﻿using Mirror;
-using Mirror.Examples.Common.Controllers.Player;
 using UnityEngine;
-
 
 public class PlayerMirror : NetworkBehaviour
 {
     public float moveSpeed = 5f;
     public float lookSensitivity = 2f;
     public Transform cameraTransform;
-    public Transform rayOrigin; // Точка, из которой выпускаем луч
-    public float rayDistance = 10f; // Дальность выстрела
+    public Transform rayOrigin;
+    public float rayDistance = 10f;
 
     private float rotationX = 0f;
 
@@ -17,20 +15,41 @@ public class PlayerMirror : NetworkBehaviour
     {
         if (!isLocalPlayer)
         {
-            // Отключаем управление камерой для других игроков
+            DisableCameraForOtherPlayers();
+        }
+    }
+
+    public override void OnStartAuthority()
+    {
+        EnableCameraForLocalPlayer();
+    }
+
+    void EnableCameraForLocalPlayer()
+    {
+        if (cameraTransform != null)
+        {
+            cameraTransform.gameObject.SetActive(true);
+            Debug.Log($"[Client] Камера активирована для {netId}");
+        }
+    }
+
+    void DisableCameraForOtherPlayers()
+    {
+        if (cameraTransform != null)
+        {
             cameraTransform.gameObject.SetActive(false);
-            return;
+            Debug.Log($"[Client] Камера отключена для {netId}");
         }
     }
 
     void Update()
     {
-        if (!isLocalPlayer) return; // Только локальный игрок управляет
+        if (!isLocalPlayer) return;
 
         HandleMovement();
         HandleLook();
 
-        if (Input.GetMouseButtonDown(1)) // ПКМ - стрельба лучом
+        if (Input.GetMouseButtonDown(1))
         {
             CmdShoot();
         }
@@ -65,7 +84,7 @@ public class PlayerMirror : NetworkBehaviour
         RaycastHit hit;
         if (Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hit, rayDistance))
         {
-            if (hit.collider.CompareTag("Player")) // Проверяем, попали ли в игрока
+            if (hit.collider.CompareTag("Player"))
             {
                 hit.collider.GetComponent<PlayerMirror>().RpcOnHit();
             }

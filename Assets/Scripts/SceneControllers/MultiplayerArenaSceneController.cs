@@ -15,6 +15,6 @@ public class MultiplayerArenaSceneController : IInitializable
 
     public void Initialize()
     {
-        _uiManager.OpenScreen(Enums.ScreenType.GameplayScreen);
+        _uiManager.OpenScreen(Enums.ScreenType.MultiplayerArenaScreen);
     }
 }
