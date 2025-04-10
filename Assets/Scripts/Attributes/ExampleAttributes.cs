@@ -13,7 +13,6 @@ public class Example : BaseMonoBehaviour
     [RangeSlider(0, 100)]
     public Vector2 Force;
 
-    // То же название секции (чтобы увидеть, что заголовок может не дублироваться)
     [SectionHeader("General Settings")]
     [Button]
     private void Button()
@@ -21,7 +20,6 @@ public class Example : BaseMonoBehaviour
         Debug.Log("Button pressed!");
     }
 
-    // Без SectionHeader: просто кнопка
     [Button]
     private void Button1()
     {

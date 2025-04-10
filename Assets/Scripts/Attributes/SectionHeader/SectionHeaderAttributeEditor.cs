@@ -10,7 +10,6 @@ public class SectionHeaderAttributeEditor : Editor
         var monoBehaviour = (MonoBehaviour)target;
         var type = monoBehaviour.GetType();
 
-        // Переменные
         SerializedProperty property = serializedObject.GetIterator();
         bool isFirst = true;
 
@@ -20,7 +19,6 @@ public class SectionHeaderAttributeEditor : Editor
         {
             isFirst = false;
 
-            // Получаем атрибут SectionHeader, если он есть
             var fieldInfo = type.GetField(property.name, System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic);
             var headerAttribute = fieldInfo != null ? (SectionHeaderAttribute)System.Attribute.GetCustomAttribute(fieldInfo, typeof(SectionHeaderAttribute)) : null;
 
@@ -35,10 +33,8 @@ public class SectionHeaderAttributeEditor : Editor
 
         serializedObject.ApplyModifiedProperties();
 
-        // Разделение блоков
         EditorGUILayout.Space(10);
 
-        // Методы
         lastHeader = null;
         var methods = type.GetMethods(
             System.Reflection.BindingFlags.Instance |
@@ -47,7 +43,6 @@ public class SectionHeaderAttributeEditor : Editor
 
         foreach (var method in methods)
         {
-            // Проверяем наличие SectionHeader для метода
             var headerAttribute = (SectionHeaderAttribute)System.Attribute.GetCustomAttribute(method, typeof(SectionHeaderAttribute));
             if (headerAttribute != null && headerAttribute.Title != lastHeader)
             {
@@ -55,7 +50,6 @@ public class SectionHeaderAttributeEditor : Editor
                 DrawCenteredLabel(headerAttribute.Title);
             }
 
-            // Проверяем наличие атрибута Button
             var buttonAttribute = (ButtonAttribute)System.Attribute.GetCustomAttribute(method, typeof(ButtonAttribute));
             if (buttonAttribute != null)
             {
