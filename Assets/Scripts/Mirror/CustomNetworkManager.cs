@@ -5,11 +5,13 @@ using Zenject;
 public class CustomNetworkManager : NetworkManager
 {
     private GameDataManager _gameDataManager;
+    private DiContainer _container;
 
     [Inject]
-    public void Construct(GameDataManager gameDataManager)
+    public void Construct(GameDataManager gameDataManager, DiContainer container)
     {
         _gameDataManager = gameDataManager;
+        _container = container;
     }
 
     public override void Start()
@@ -18,7 +20,7 @@ public class CustomNetworkManager : NetworkManager
 
         if (_gameDataManager.IsHost)
         {
-            Debug.Log("[NetworkManager] Запуск сервера...");
+            Debug.Log("[NetworkManager] Запуск сервера");
             StartHost();
         }
         else
@@ -36,14 +38,15 @@ public class CustomNetworkManager : NetworkManager
         Vector3 spawnPosition = startPosition != null ? startPosition.position : Vector3.zero;
         Quaternion spawnRotation = startPosition != null ? startPosition.rotation : Quaternion.identity;
 
-        GameObject player = Instantiate(playerPrefab, spawnPosition, spawnRotation);
+        GameObject player = _container.InstantiatePrefab(playerPrefab, spawnPosition, spawnRotation, null);
+
         NetworkServer.AddPlayerForConnection(conn, player);
     }
 
     [Server]
     public void SpawnPlayer(NetworkConnectionToClient conn, Vector3 position)
     {
-        GameObject player = Instantiate(playerPrefab, position, Quaternion.identity);
+        GameObject player = _container.InstantiatePrefab(playerPrefab, position, Quaternion.identity, null);
         NetworkServer.AddPlayerForConnection(conn, player);
     }
 

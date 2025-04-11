@@ -1,6 +1,4 @@
-
-using System.Collections.Generic;
-using UnityEditor.MemoryProfiler;
+using UnityEngine;
 
 public static class EventsProvider
 {
@@ -15,6 +13,16 @@ public static class EventsProvider
             Ip = ip;
             Port = port;
             IsHost = isHost;
+        }
+    }
+
+    public class PlayerDiedEvent 
+    {
+        public readonly GameObject GameObject;
+
+        public PlayerDiedEvent(GameObject gameObject) 
+        {
+            GameObject = gameObject;
         }
     }
 }

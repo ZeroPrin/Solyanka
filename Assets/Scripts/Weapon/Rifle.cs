@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using Mirror;
 
-public class Rifle : MonoBehaviour
+public class Rifle : NetworkBehaviour
 {
     [SerializeField] private float _fireRate = 5f;
     [SerializeField] private float _fireRange = 100f;
@@ -21,13 +22,15 @@ public class Rifle : MonoBehaviour
 
     private void Update()
     {
+        if (!isLocalPlayer) return;
+
         if (Input.GetMouseButtonDown(0))
         {
-            Fire();
+            TryFire();
         }
         else if (Input.GetMouseButton(0) && Time.time >= _nextFireTime)
         {
-            Fire();
+            TryFire();
             _nextFireTime = Time.time + 1f / _fireRate;
         }
 
@@ -35,14 +38,35 @@ public class Rifle : MonoBehaviour
         transform.localPosition = _originalPosition + _currentRecoilOffset;
     }
 
-    private void Fire()
+    private void TryFire()
     {
-        Ray ray = new Ray(_firePoint.position, _firePoint.forward);
+        Vector3 fireDirection = _firePoint.forward;
+        CmdFire(fireDirection);
+        _currentRecoilOffset += _recoilOffset / _multiplier;
+    }
+
+    [Command]
+    private void CmdFire(Vector3 direction)
+    {
+        Ray ray = new Ray(_firePoint.position, direction);
         if (Physics.Raycast(ray, out RaycastHit hit, _fireRange))
         {
-            //Debug.Log($"Попали в: {hit.collider.name}");
+            Debug.Log($"[Server] Попали в: {hit.collider.name}");
+
+            var health = hit.collider.GetComponent<Health>();
+            if (health != null)
+            {
+                health.ApplyDamage(20);
+            }
         }
 
-        _currentRecoilOffset += _recoilOffset/ _multiplier;
+        RpcFireEffects();
+    }
+
+
+    [ClientRpc]
+    private void RpcFireEffects()
+    {
+
     }
 }
